@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
+import Weather from '../components/Weather'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
@@ -9,14 +10,14 @@ export default function Home() {
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(false);
 
-const url = `http://api.openweathermap.org/data/2.5/weather?q=London&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
+const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
 
- const getWeather =(e: React.MouseEvent<HTMLButtonElement>) => {
+const getWeather =(e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setLoading(true);
   axios.get(url).then((response) => {
     setWeather(response.data);
-    console.log(response.data);
+    //console.log(response.data);
     })
     setCity('');
     setLoading(false);
@@ -38,16 +39,19 @@ const url = `http://api.openweathermap.org/data/2.5/weather?q=London&units=imper
         {/* screach */}
         <div className='relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10'>
 
-          <form className='flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2x1'>
+          <form onSubmit={getWeather}
+          className='flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2x1'>
             <div>
-              <input className='bg-transparent border-none _text-white focus:outline-none text-2xl' type='text' placeholder='search city'/>
+              <input onChange={(e) => setCity(e.target.value)}
+              className='bg-transparent border-none _text-white focus:outline-none text-2xl' type='text' placeholder='search city'/>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={getWeather}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
               get weather
             </button>
           </form>
-
         </div> 
-        </div> 
+        {/* weather */}
+        { <Weather data={weather}/>} 
+       </div>
   )
 }
