@@ -6,27 +6,49 @@ import Weather from '../components/Weather'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const [city, setCity] = useState({});
-  const [weather, setWeather] = useState({});
+  const [city, setCity] = useState('');  const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(false);
 
-const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
-
-const getWeather =(e: React.FormEvent<HTMLFormElement>) => {
+const getWeather = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+
+  if (!city) {
+    alert("Please enter a city name!");
+    return;
+  // Remove the extra closing brace
+
   setLoading(true);
-  axios.get(url).then((response) => {
+
+  const URL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
+  try {
+    const response = await axios.get(URL);
     setWeather(response.data);
-    //console.log(response.data);
-    })
-    setCity('');
-    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching weather data", error);
   }
+
+  setLoading(false);
+  setCity(''); // Clear the input field after the request
+};
+
+
+  const URL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`;
+  
+  try {
+    const response = await axios.get(URL);
+    setWeather(response.data); // Store weather data when response is successful
+  } catch (error) {
+    console.error("Error fetching weather data", error);
+  }
+
+  setLoading(false);
+  setCity(''); // Clear the input field after the request
+};
+
 
 
   return (
       <div>
-
         {/* Overlay */}
         <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/25 z-[1]'/>
         
@@ -41,17 +63,29 @@ const getWeather =(e: React.FormEvent<HTMLFormElement>) => {
 
           <form onSubmit={getWeather}
           className='flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2x1'>
+            
             <div>
-              <input onChange={(e) => setCity(e.target.value)}
-              className='bg-transparent border-none _text-white focus:outline-none text-2xl' type='text' placeholder='search city'/>
-            </div>
+            <input
+              onChange={(e) => setCity(e.target.value)}
+              value={city}
+              className='bg-transparent border-none text-white focus:outline-none text-2xl'
+              type='text'
+              placeholder='Search city'
+            />
+          </div>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
               get weather
             </button>
           </form>
         </div> 
         {/* weather */}
-        { <Weather data={weather}/>} 
-       </div>
+        <div className='relative z-10'>
+        {loading ? (
+          <p className="text-center text-white">Loading...</p>
+        ) : (
+          weather && <Weather data={weather} />
+        )}
+      </div>
+    </div>
   )
 }
