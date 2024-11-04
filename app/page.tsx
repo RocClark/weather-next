@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
 import Weather from '../components/Weather'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 
 export default function Home() {
   const [city, setCity] = useState(''); // Changed {} to '' for proper string input
@@ -27,14 +27,15 @@ export default function Home() {
       <div>
 
         {/* Overlay */}
-        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/25 z-[1]'/>
+        <div className='relative w-full h-full'/>
         
         {/* Background */}
         <Image
-         src="https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdWR8ZW58MHx8MHx8fDI%3D"
-         layout="fill" alt="Weather Image" 
-         className='object-cover'
-         />
+          src="https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdWR8ZW58MHx8MHx8fDI%3D"
+          fill
+          alt="Weather Image"
+           
+        />
 
         {/* Search Form */}
         <div className='relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10'>
