@@ -1,8 +1,7 @@
 'use client';
 import Image from 'next/image'
-import Link from 'next/link'
 import axios from 'axios'
-import Weather from '../components/weather'
+import Weather from '../components/weather';
 import {  useState } from 'react'
 
 export default function Home() {
