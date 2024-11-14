@@ -24,21 +24,21 @@ const Weather = ({ data }) => {
                 <p className="text-9xl">{data.main.temp.toFixed(0)}&#176;</p>
             </div>
 
-            <div>
+            <div className="flex flex-col md:flex-row justify-between items-center mt-4">
                 {/* Display city name */}
                 <p className="text-3xl">{data.name}</p>
-                <div>
-                    <div>
+                <div className="flex flex-col md:flex-row md:ml-4">
+                    <div className="flex flex-col mr-4">
                         {/* Feels like temperature */}
                         <p className="text-3xl">{data.main.feels_like.toFixed(0)}&#176;</p>
                         <p className="text-sm">Feels like</p>
                     </div>
-                    <div>
+                    <div className="flex flex-col mr-4">
                         {/* Humidity */}
                         <p className="text-3xl">{data.main.humidity}%</p>
                         <p className="text-sm">Humidity</p>
                     </div>
-                    <div>
+                    <div className="flex flex-col">
                         {/* Wind Speed */}
                         <p className="text-3xl">{data.wind.speed.toFixed(0)} MPH</p>
                         <p className="text-sm">Wind Speed</p>
