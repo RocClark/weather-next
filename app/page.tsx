@@ -17,7 +17,6 @@ export default function Home() {
     setLoading(true);
     axios.get(URL).then((response) => {
       setWeather(response.data); // Set the weather data after the API response
-      console.log(response.data); // Log data to ensure it's being fetched
     })
     .catch(err => console.error(err))
     .finally(() => setLoading(false)); // Stop loading after the API call
@@ -38,14 +37,14 @@ export default function Home() {
         />
 
         {/* Search Form */}
-        <div className='relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10'>
+        <div className='relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-black z-10'>
           <form onSubmit={getWeather}
-          className='flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-white rounded-2x1'>
+          className='flex justify-between items-center w-full m-auto p-3 bg-transparent border border-gray-300 text-black rounded-2x1'>
             <div>
               <input 
                 onChange={(e) => setCity(e.target.value)} // Capture city input
                 value={city} // Controlled input value
-                className='bg-transparent border-none text-white focus:outline-none text-2xl' 
+                className='bg-transparent border-none text-black focus:outline-none text-2xl' 
                 type='text' 
                 placeholder='Search city'
               />
