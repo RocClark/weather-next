@@ -4,6 +4,7 @@ import axios from 'axios'
 import Weather from '../components/weather';
 import {  useState } from 'react'
 
+
 export default function Home() {
   const [city, setCity] = useState(''); // Changed {} to '' for proper string input
   const [weather, setWeather] = useState(null); // Initialize weather as null
