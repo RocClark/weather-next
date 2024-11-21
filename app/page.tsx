@@ -10,7 +10,7 @@ export default function Home() {
   const [weather, setWeather] = useState(null); // Initialize weather as null
   const [loading, setLoading] = useState(false);
 
-  const URL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`
+  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`;
 
   const getWeather = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
