@@ -15,12 +15,16 @@ export default function Home() {
   const getWeather = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    axios.get(URL).then((response) => {
-      setWeather(response.data); // Set the weather data after the API response
+    axios.get(URL)
+    .then((response) => {
+      setWeather(response.data);
     })
-    .catch(err => console.error(err))
-    .finally(() => setLoading(false)); // Stop loading after the API call
-  }
+    .catch((err) => {
+      console.error("Error fetching weather data:", err);
+      alert("Failed to fetch weather data. Please check your input.");
+    })
+      .finally(() => setLoading(false));
+    }
 
   return (
       <div>
